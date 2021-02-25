@@ -10,28 +10,40 @@
     <nav class="p-6 bg-white flex justify-between mb-6">
         <ul class="flex items-center">
             <li>
-                <a class="p-3" href=""> Home </a>
+                <a class="p-3" href="{{ route("home") }}"> Home </a>
             </li>
             <li>
-                <a class="p-3" href="/dashboard"> Dashboard </a>
+                <a class="p-3" href="{{ route("dashboard") }}"> Dashboard </a>
             </li>
             <li>
                 <a class="p-3" href="/posts"> Posts </a>
             </li>
         </ul>
         <ul class="flex items-center">
+            @auth
             <li>
-                <a class="p-3" href=""> Landon Johnson </a>
+                <a class="p-3" href=""> {{ auth()->user()->name }} </a>
             </li>
             <li>
-                <a class="p-3" href="/dashboard"> Login </a>
+                <form method="post" action="{{ route('logout') }}">
+                    @csrf
+                <button type="submit" class="p-3" > Logout </button>
+
+                </form>
             </li>
+            @endauth
+
+            @guest
             <li>
                 <a class="p-3" href="{{ route('register') }}"> Register </a>
             </li>
             <li>
-                <a class="p-3" href="/dashboard"> Logout </a>
+                <a class="p-3" href="{{ route('login') }}"> Login </a>
             </li>
+            
+            @endguest
+            
+            
         </ul>
     </nav>
     @yield('content')
